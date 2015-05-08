@@ -18,6 +18,13 @@
   [info]
   (data 201 info))
 
+(defn saved
+  "Builds a response for a created or updated model"
+  [new? info]
+  (if new?
+    (created info)
+    (ok info)))
+
 (defn accepted
   "Builds a response with the given data and creates status code"
   [info]

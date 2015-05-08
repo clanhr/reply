@@ -12,6 +12,14 @@
         response (reply/created data)]
   (is (= 201 (:status response)))))
 
+(deftest saved-test
+  (let [data {:company "ClanHR"}
+        response (reply/saved true data)]
+  (is (= 201 (:status response))))
+  (let [data {:company "ClanHR"}
+        response (reply/saved false data)]
+  (is (= 200 (:status response)))))
+
 (deftest accepted-test
   (let [data {:company "ClanHR"}
         response (reply/accepted data)]
