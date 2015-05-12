@@ -1,6 +1,7 @@
 (ns clanhr.reply.core-test
   (use clojure.test)
-  (:require [clanhr.reply.core :as reply]))
+  (:require [clanhr.reply.core :as reply]
+            [clj-time.core :as t]))
 
 (deftest ok-test
   (let [data {:company "ClanHR"}
@@ -43,3 +44,8 @@
   (let [data {:company "ClanHR"}
         response (reply/internal-server-error data)]
   (is (= 500 (:status response)))))
+
+(deftest render-dates
+  (let [data {:date (t/now)}
+        response (reply/ok data)]
+  (is (= 200 (:status response)))))
