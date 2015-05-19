@@ -49,3 +49,10 @@
   (let [data {:date (t/now)}
         response (reply/ok data)]
   (is (= 200 (:status response)))))
+
+(deftest result-test
+  (let [response-ok (reply/result {:success true})
+        response-bad (reply/result {:success false})]
+    (is (= 200 (:status response-ok)))
+    (is (= 400 (:status response-bad)))))
+
