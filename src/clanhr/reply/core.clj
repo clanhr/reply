@@ -56,3 +56,10 @@
   "Builds a response for an exception"
   [ex]
   (internal-server-error {:error (.getMessage ex)}))
+
+(defn result
+  "Builds a response for a clanhr's result"
+  [result]
+  (if (= true (:success result))
+    (ok result)
+    (bad-request result)))
