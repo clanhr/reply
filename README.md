@@ -4,3 +4,10 @@
 
 Handy ring reply/responses.
 
+* `ok`
+* `created`
+* `accepted`
+* `bad-request`
+* `unauthorized`
+* `not-found`
+* `internal-server-error`
