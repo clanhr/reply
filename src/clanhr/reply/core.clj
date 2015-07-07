@@ -60,6 +60,7 @@
 (defn result
   "Builds a response for a clanhr's result"
   [result]
-  (if (= true (:success result))
-    (ok result)
-    (bad-request result)))
+  (cond
+    (:success result) (ok result)
+    (:unauthorised result) (unauthorized result)
+    :else (bad-request result)))

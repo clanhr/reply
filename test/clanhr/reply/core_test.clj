@@ -52,7 +52,9 @@
 
 (deftest result-test
   (let [response-ok (reply/result {:success true})
+        response-unauthorised (reply/result {:unauthorised true})
         response-bad (reply/result {:success false})]
     (is (= 200 (:status response-ok)))
+    (is (= 401 (:status response-unauthorised)))
     (is (= 400 (:status response-bad)))))
 
