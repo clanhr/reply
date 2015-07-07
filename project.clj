@@ -1,7 +1,8 @@
-(defproject clanhr/reply "0.4.0"
+(defproject clanhr/reply "0.5.0"
   :description "FIXME: write description"
   :url "http://github.com/clanhr/reply"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[cheshire "5.4.0"]
-                 [clj-time "0.9.0"]])
+  :dependencies [[org.clojure/clojure "1.7.0"]
+                 [cheshire "5.5.0"]
+                 [clj-time "0.10.0"]])
