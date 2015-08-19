@@ -1,12 +1,21 @@
 (ns clanhr.reply.core
-  (:require [clanhr.reply.json :as json]))
+  (:require [clanhr.reply.json :as json]
+            [manifold.deferred :as d]
+            [clojure.core.async :refer :all]))
+
+(defmacro async-reply
+  [& reply]
+  `(d/->deferred
+    (go (let [response# (do ~@reply)
+              body# (:body response#)]
+          (assoc response# :body (<! (go body#)))))))
 
 (defn data
   "Builds a response with the given data"
   [status info]
   {:status status
    :headers {"Content-Type" "application/json"}
-   :body (json/dump info) })
+   :body (json/dump info)})
 
 (defn ok
   "Builds a response with the given data and creates status code"
