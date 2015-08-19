@@ -61,5 +61,8 @@
     (is (= 400 (:status response-bad)))))
 
 (deftest async-reply-test
-  (let [response (reply/ok {})]
-    (is (d/deferred? (reply/async-reply response)))))
+  (let [response (reply/ok "bubu")
+        async-response (reply/async-reply response)]
+    (println "RES: " async-response)
+    (is (= 200 (:status async-response)))
+    (is (= "bubu" (:body async-response)))))
