@@ -1,5 +1,12 @@
 (ns clanhr.reply.core
-  (:require [clanhr.reply.json :as json]))
+  (:require [clanhr.reply.json :as json]
+            [manifold.deferred :as d]
+            [clojure.core.async :refer :all]))
+
+(defmacro async-reply
+  [body]
+  `(d/->deferred
+    (go ~body)))
 
 (defn data
   "Builds a response with the given data"

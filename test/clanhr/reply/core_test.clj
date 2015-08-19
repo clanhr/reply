@@ -1,6 +1,8 @@
 (ns clanhr.reply.core-test
   (use clojure.test)
   (:require [clanhr.reply.core :as reply]
+            [manifold.deferred :as d]
+            [clojure.core.async :refer :all]
             [clj-time.core :as t]))
 
 (deftest ok-test
@@ -58,3 +60,6 @@
     (is (= 401 (:status response-unauthorised)))
     (is (= 400 (:status response-bad)))))
 
+(deftest async-reply-test
+  (let [response (reply/ok {})]
+    (is (d/deferred? (reply/async-reply response)))))
