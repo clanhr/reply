@@ -61,8 +61,6 @@
     (is (= 400 (:status response-bad)))))
 
 (deftest async-reply-test
-  (let [response (reply/ok "bubu")
-        async-response (reply/async-reply response)]
-    (println "RES: " async-response)
-    (is (= 200 (:status async-response)))
-    (is (= "bubu" (:body async-response)))))
+  (let [response @(reply/async-reply (reply/ok 1))]
+    (is (= 200 (:status response)))
+    (is (= "1" (:body response)))))

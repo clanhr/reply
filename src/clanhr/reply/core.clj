@@ -8,7 +8,7 @@
   `(d/->deferred
     (go (let [response# (do ~@reply)
               body# (:body response#)]
-          (assoc response# :body (<! body#))))))
+          (assoc response# :body (<! (go body#)))))))
 
 (defn data
   "Builds a response with the given data"
