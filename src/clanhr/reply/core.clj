@@ -4,9 +4,9 @@
             [clojure.core.async :refer :all]))
 
 (defmacro async-reply
-  [body]
+  [& body]
   `(d/->deferred
-    (go ~body)))
+    (go ~@body)))
 
 (defn data
   "Builds a response with the given data"
