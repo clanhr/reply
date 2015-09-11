@@ -10,6 +10,10 @@
               body# (:body response#)]
           (assoc response# :body (<! (go body#)))))))
 
+(defmacro async-result
+  [& reply]
+  `(async-reply (result ~@reply)))
+
 (defn data
   "Builds a response with the given data"
   [status info]
