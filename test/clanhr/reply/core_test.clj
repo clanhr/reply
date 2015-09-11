@@ -64,3 +64,17 @@
   (let [response @(reply/async-reply (reply/ok 1))]
     (is (= 200 (:status response)))
     (is (= "1" (:body response)))))
+
+(deftest async-result-test
+  (testing "ok"
+    (let [response @(reply/async-result {:success true})]
+      (is (= 200 (:status response)))))
+
+  (testing "unauthorized"
+    (let [response @(reply/async-result {:unauthorised true})]
+      (is (= 401 (:status response)))))
+
+  (testing "bad request"
+    (let [response @(reply/async-result {:anything true})]
+      (is (= 400 (:status response)))))
+  )
