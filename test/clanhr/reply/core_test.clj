@@ -67,14 +67,14 @@
 
 (deftest async-result-test
   (testing "ok"
-    (let [response @(reply/async-result {:success true})]
+    (let [response @(reply/async-result (go {:success true}))]
       (is (= 200 (:status response)))))
 
   (testing "unauthorized"
-    (let [response @(reply/async-result {:unauthorised true})]
+    (let [response @(reply/async-result (go {:unauthorised true}))]
       (is (= 401 (:status response)))))
 
   (testing "bad request"
-    (let [response @(reply/async-result {:anything true})]
+    (let [response @(reply/async-result (go {:anything true}))]
       (is (= 400 (:status response)))))
   )
