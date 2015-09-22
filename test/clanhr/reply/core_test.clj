@@ -2,7 +2,7 @@
   (use clojure.test)
   (:require [clanhr.reply.core :as reply]
             [manifold.deferred :as d]
-            [clojure.core.async :refer :all]
+            [clojure.core.async :refer [go <!]]
             [clj-time.core :as t]))
 
 (deftest ok-test
