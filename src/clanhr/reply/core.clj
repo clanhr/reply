@@ -76,4 +76,5 @@
   (cond
     (:success result) (ok result)
     (:unauthorised result) (unauthorized result)
+    (:exception result) (exception (:exception result))
     :else (bad-request result)))
