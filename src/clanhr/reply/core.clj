@@ -82,6 +82,7 @@
   [result]
   (cond
     (:success result) (ok result)
+    (:forbidden result) (forbidden result)
     (:unauthorised result) (unauthorized result)
     (:exception result) (exception (:exception result))
     :else (bad-request result)))

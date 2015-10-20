@@ -1,5 +1,4 @@
 (defproject clanhr/reply "0.7.4"
->>>>>>> master
   :description "FIXME: write description"
   :url "http://github.com/clanhr/reply"
   :license {:name "Eclipse Public License"
