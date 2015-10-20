@@ -37,6 +37,10 @@
   (let [response (reply/unauthorized)]
     (is (= 401 (:status response)))))
 
+(deftest forbidden
+  (let [response (reply/forbidden)]
+    (is (= 403 (:status response)))))
+
 (deftest not-found
   (let [data {:company "ClanHR"}
         response (reply/not-found data)]
