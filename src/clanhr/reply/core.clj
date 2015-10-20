@@ -1,7 +1,7 @@
 (ns clanhr.reply.core
   (:require [clanhr.reply.json :as json]
             [manifold.deferred :as d]
-            [clojure.core.async :refer :all]))
+            [clojure.core.async :refer [go <!]]))
 
 (defmacro async-reply
   [& reply]
@@ -83,4 +83,5 @@
   (cond
     (:success result) (ok result)
     (:unauthorised result) (unauthorized result)
+    (:exception result) (exception (:exception result))
     :else (bad-request result)))
