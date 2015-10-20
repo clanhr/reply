@@ -37,6 +37,10 @@
   (let [response (reply/unauthorized)]
     (is (= 401 (:status response)))))
 
+(deftest forbidden
+  (let [response (reply/forbidden)]
+    (is (= 403 (:status response)))))
+
 (deftest not-found
   (let [data {:company "ClanHR"}
         response (reply/not-found data)]
@@ -55,9 +59,11 @@
 (deftest result-test
   (let [response-ok (reply/result {:success true})
         response-unauthorised (reply/result {:unauthorised true})
+        response-forbidden (reply/result {:forbidden true})
         response-bad (reply/result {:success false})]
     (is (= 200 (:status response-ok)))
     (is (= 401 (:status response-unauthorised)))
+    (is (= 403 (:status response-forbidden)))
     (is (= 400 (:status response-bad)))))
 
 (deftest async-reply-test

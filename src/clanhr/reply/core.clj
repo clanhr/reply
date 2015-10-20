@@ -55,6 +55,13 @@
   ([info]
   (data 401 info)))
 
+(defn forbidden
+  "Builds a response with the given data and creates status code"
+  ([]
+   (forbidden {}))
+  ([info]
+  (data 403 info)))
+
 (defn not-found
   "Builds a response with the given data and creates status code"
   [info]
@@ -75,6 +82,7 @@
   [result]
   (cond
     (:success result) (ok result)
+    (:forbidden result) (forbidden result)
     (:unauthorised result) (unauthorized result)
     (:exception result) (exception (:exception result))
     :else (bad-request result)))
