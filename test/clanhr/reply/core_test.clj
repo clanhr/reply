@@ -5,6 +5,20 @@
             [clojure.core.async :refer [go <!]]
             [clj-time.core :as t]))
 
+(deftest ok-data-ical-test
+  (let [data {:company "ClanHR"}
+        response (reply/data 200 data "text/calendar")]
+    (is (= 200 (:status response)))
+    (is (= {"Content-Type" "text/calendar"}
+           (:headers response)))))
+
+(deftest ok-ical-test
+  (let [data {:company "ClanHR"}
+        response (reply/ok-ical data)]
+    (is (= 200 (:status response)))
+    (is (= {"Content-Type" "text/calendar"}
+           (:headers response)))))
+
 (deftest ok-test
   (let [data {:company "ClanHR"}
         response (reply/ok data)]
