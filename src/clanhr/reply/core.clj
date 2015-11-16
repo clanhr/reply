@@ -23,9 +23,15 @@
     :headers {"Content-Type" content-type}
     :body (json/dump info)}))
 
+(defn plain-data
+  [status info content-type]
+  {:status status
+   :headers {"Content-Type" content-type}
+   :body info})
+
 (defn ok-ical
   [info]
-  (data 200 info "text/calendar"))
+  (plain-data 200 info "text/calendar"))
 
 (defn ok
   "Builds a response with the given data and creates status code"
