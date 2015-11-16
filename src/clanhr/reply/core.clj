@@ -16,10 +16,16 @@
 
 (defn data
   "Builds a response with the given data"
-  [status info]
-  {:status status
-   :headers {"Content-Type" "application/json"}
-   :body (json/dump info)})
+  ([status info]
+   (data status info "application/json"))
+  ([status info content-type]
+   {:status status
+    :headers {"Content-Type" content-type}
+    :body (json/dump info)}))
+
+(defn ok-ical
+  [info]
+  (data 200 info "text/calendar"))
 
 (defn ok
   "Builds a response with the given data and creates status code"
