@@ -1,14 +1,18 @@
 (ns clanhr.reply.core
+  (:import
+    [java.io File])
   (:require [clanhr.reply.json :as json]
             [manifold.deferred :as d]
+            [manifold.stream :as s]
             [clojure.core.async :refer [go <!]]))
 
 (defmacro async-reply
   [& reply]
-  `(d/->deferred
-    (go (let [response# (do ~@reply)
-              body# (:body response#)]
-          (assoc response# :body (<! (go body#)))))))
+  `(s/take!
+     (s/->source
+       (go (let [response# (do ~@reply)
+                 body# (:body response#)]
+             (assoc response# :body (<! (go body#))))))))
 
 (defmacro async-result
   [& reply]
@@ -22,6 +26,22 @@
    {:status status
     :headers {"Content-Type" content-type}
     :body (json/dump info)}))
+
+(defn file
+  "Builds a response for a given file path"
+  [file-path file-name content-type]
+  (let [file-response (File. file-path)]
+    {:status 200
+     :headers {"Content-Type" content-type
+               "Content-Disposition" (str "attachment; filename=\"" file-name "\"")}
+     :body file-response}))
+
+(defn excel-file
+  "Builds a response from an excel file"
+  [file-path file-name]
+  (file file-path
+        file-name
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
 
 (defn plain-data
   [status info content-type]
