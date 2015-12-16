@@ -3,14 +3,16 @@
     [java.io File])
   (:require [clanhr.reply.json :as json]
             [manifold.deferred :as d]
+            [manifold.stream :as s]
             [clojure.core.async :refer [go <!]]))
 
 (defmacro async-reply
   [& reply]
-  `(d/->deferred
-    (go (let [response# (do ~@reply)
-              body# (:body response#)]
-          (assoc response# :body (<! (go body#)))))))
+  `(s/take!
+     (s/->source
+       (go (let [response# (do ~@reply)
+                 body# (:body response#)]
+             (assoc response# :body (<! (go body#))))))))
 
 (defmacro async-result
   [& reply]
