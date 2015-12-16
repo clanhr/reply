@@ -96,5 +96,10 @@
 
   (testing "bad request"
     (let [response @(reply/async-result (go {:anything true}))]
-      (is (= 400 (:status response)))))
-  )
+      (is (= 400 (:status response))))))
+
+(deftest file-reply
+  (let [response (reply/file "project.clj" "project.clj" "text/plain")]
+    (is (= 200 (:status response)))
+    (is (= "text/plain" (get-in response [:headers "Content-Type"])))))
+
