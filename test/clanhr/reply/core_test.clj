@@ -42,6 +42,11 @@
         response (reply/accepted data)]
     (is (= 202 (:status response)))))
 
+(deftest redirect-test
+  (let [url "http://lamuriaenterprises.com"
+        response (reply/redirect url)]
+    (is (= 301 (:status response)))))
+
 (deftest bad-request-test
   (let [data {:company "ClanHR"}
         response (reply/bad-request data)]
