@@ -49,6 +49,11 @@
    :headers {"Content-Type" content-type}
    :body info})
 
+(defn redirect-data
+  [status url]
+  {:status status
+   :headers {"Location" url}})
+
 (defn ok-ical
   [info]
   (plain-data 200 info "text/calendar"))
@@ -74,6 +79,11 @@
   "Builds a response with the given data and creates status code"
   [info]
   (data 202 info))
+
+(defn redirect
+  "Builds a response with the given data and creates status code"
+  [url]
+  (redirect-data 301 url))
 
 (defn bad-request
   "Builds a response with the given data and creates status code"
