@@ -60,6 +60,12 @@
   (let [response (reply/forbidden)]
     (is (= 403 (:status response)))))
 
+(deftest payment-required
+  (let [response (reply/payment-required)
+        response2 (reply/result {:payment-required true :data "PaymentRequired"})]
+    (is (= 402 (:status response)))
+    (is (= 402 (:status response2)))))
+
 (deftest not-found
   (let [data {:company "ClanHR"}
         response (reply/not-found data)]

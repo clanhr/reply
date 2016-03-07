@@ -104,6 +104,13 @@
   ([info]
   (data 403 info)))
 
+(defn payment-required
+  "Builds a response for a payment-required"
+  ([]
+   (payment-required {}))
+  ([info]
+  (data 402 info)))
+
 (defn not-found
   "Builds a response with the given data and creates status code"
   [info]
@@ -126,5 +133,6 @@
     (:success result) (ok result)
     (:forbidden result) (forbidden result)
     (:unauthorised result) (unauthorized result)
+    (:payment-required result) (payment-required result)
     (:exception result) (exception (:exception result))
     :else (bad-request result)))
