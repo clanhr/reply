@@ -94,7 +94,7 @@
 (deftest async-reply-test
   (let [response @(reply/async-reply (reply/ok 1))]
     (is (= 200 (:status response)))
-    (is (= "1" (:body response)))))
+    (is (= 1 (:body response)))))
 
 (deftest async-result-test
   (testing "ok"

@@ -25,7 +25,7 @@
   ([status info content-type]
    {:status status
     :headers {"Content-Type" content-type}
-    :body (json/dump info)}))
+    :body info}))
 
 (defn file
   "Builds a response for a given file path"
