@@ -130,6 +130,7 @@
   "Builds a response for a clanhr's result"
   [result]
   (cond
+    (:created result) (created result)
     (:success result) (ok result)
     (:forbidden result) (forbidden result)
     (:unauthorised result) (unauthorized result)

@@ -85,8 +85,10 @@
   (let [response-ok (reply/result {:success true})
         response-unauthorised (reply/result {:unauthorised true})
         response-forbidden (reply/result {:forbidden true})
-        response-bad (reply/result {:success false})]
+        response-bad (reply/result {:success false})
+        response-created (reply/result {:created true :success true})]
     (is (= 200 (:status response-ok)))
+    (is (= 201 (:status response-created)))
     (is (= 401 (:status response-unauthorised)))
     (is (= 403 (:status response-forbidden)))
     (is (= 400 (:status response-bad)))))
@@ -113,4 +115,3 @@
   (let [response (reply/file "project.clj" "project.clj" "text/plain")]
     (is (= 200 (:status response)))
     (is (= "text/plain" (get-in response [:headers "Content-Type"])))))
-
