@@ -66,6 +66,12 @@
     (is (= 402 (:status response)))
     (is (= 402 (:status response2)))))
 
+(deftest locked
+  (let [response (reply/locked)
+        response2 (reply/result {:locked true :data {:reason "termsNotAccepted"}})]
+    (is (= 423 (:status response)))
+    (is (= 423 (:status response2)))))
+
 (deftest not-found
   (let [data {:company "ClanHR"}
         response (reply/not-found data)]

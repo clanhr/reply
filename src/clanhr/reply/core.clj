@@ -111,6 +111,13 @@
   ([info]
   (data 402 info)))
 
+(defn locked
+  "Builds a response for a locked resource"
+  ([]
+   (locked {}))
+  ([info]
+  (data 423 info)))
+
 (defn not-found
   "Builds a response with the given data and creates status code"
   [info]
@@ -135,5 +142,6 @@
     (:forbidden result) (forbidden result)
     (:unauthorised result) (unauthorized result)
     (:payment-required result) (payment-required result)
+    (:locked result) (locked result)
     (:exception result) (exception (:exception result))
     :else (bad-request result)))
